@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              const Text('아이콘 들어갈 곳'),
+              Image.asset('assets/icons/app_icon.png', width: 90, height: 90),
               const SizedBox(height: 24),
               const Text(
                 '당당하게',
