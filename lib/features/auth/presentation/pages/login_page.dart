@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/card_container.dart';
@@ -63,9 +64,10 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: GestureDetector(
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(32),
                             onTap: () {
-                              // TODO: 회원가입 화면으로 이동
+                              context.push('/signup');
                             },
                             child: Center(
                               child: const Text(
