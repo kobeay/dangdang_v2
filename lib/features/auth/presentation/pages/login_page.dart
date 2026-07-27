@@ -40,9 +40,10 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Container(
+                            height: 40,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.05),
@@ -64,18 +65,23 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(32),
-                            onTap: () {
-                              context.push('/signup');
-                            },
-                            child: Center(
-                              child: const Text(
-                                '회원가입',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(32),
+                              onTap: () {
+                                context.push('/signup');
+                              },
+                              child: Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  '회원가입',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             ),

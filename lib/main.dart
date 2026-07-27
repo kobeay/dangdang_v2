@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import './features/auth/presentation/pages/login_page.dart';
-import './features/auth/presentation/pages/signup_page.dart';
+import 'package:flutter/services.dart';
+
 import './app/app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
+
   runApp(const DangDangApp());
 }

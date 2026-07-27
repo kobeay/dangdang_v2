@@ -13,33 +13,36 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        padding: const EdgeInsets.fromLTRB(24, 56, 24, 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: () {
-                context.pop();
-              },
-              borderRadius: BorderRadius.circular(8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.arrow_back,
-                    size: 18,
-                    color: Color(0xFF9CA3AF),
-                  ),
-                  const SizedBox(width: 6),
-                  const Text(
-                    '로그인으로 돌아가기',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.pop();
+                },
+                borderRadius: BorderRadius.circular(8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.arrow_back,
+                      size: 18,
                       color: Color(0xFF9CA3AF),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 6),
+                    const Text(
+                      '로그인으로 돌아가기',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF9CA3AF),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 40),
