@@ -9,8 +9,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -18,19 +21,9 @@ class LoginPage extends StatelessWidget {
             children: [
               Image.asset('assets/icons/app_icon.png', width: 90, height: 90),
               const SizedBox(height: 24),
-              const Text(
-                '당당하게',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+              Text('당당하게', style: textTheme.headlineMedium),
               const SizedBox(height: 8),
-              const Text(
-                '건강 관리, 당당하게 시작해보세요!',
-                style: TextStyle(fontSize: 16, color: Color(0xFF8A8D9F)),
-              ),
+              Text('건강 관리, 당당하게 시작해보세요!', style: textTheme.bodyMedium),
               const SizedBox(height: 40),
               CardContainer(
                 child: Column(
@@ -53,12 +46,12 @@ class LoginPage extends StatelessWidget {
                               ],
                             ),
                             child: Center(
-                              child: const Text(
+                              child: Text(
                                 '로그인',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
+                                  color: colorScheme.primary,
                                 ),
                               ),
                             ),
@@ -75,12 +68,12 @@ class LoginPage extends StatelessWidget {
                               child: Container(
                                 height: 40,
                                 alignment: Alignment.center,
-                                child: const Text(
+                                child: Text(
                                   '회원가입',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+                                    color: colorScheme.onSurfaceVariant,
                                   ),
                                 ),
                               ),
@@ -90,14 +83,14 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 32),
-                    const Text('이메일 주소'),
+                    Text('이메일 주소', style: textTheme.titleMedium),
                     const SizedBox(height: 12),
                     CustomTextField(
                       hintText: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
                     ),
                     const SizedBox(height: 24),
-                    const Text('비밀번호'),
+                    Text('비밀번호', style: textTheme.titleMedium),
                     const SizedBox(height: 12),
                     CustomTextField(
                       hintText: '비밀번호를 입력하세요',
