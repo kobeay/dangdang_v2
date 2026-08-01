@@ -28,6 +28,8 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: colorScheme.surface,
       textTheme: textTheme,
       inputDecorationTheme: _buildInputDecorationTheme(colorScheme, textTheme),
+      elevatedButtonTheme: _buildElevatedButtonTheme(colorScheme, textTheme),
+      datePickerTheme: _buildDatePickerTheme(colorScheme, textTheme),
     );
   }
 
@@ -80,6 +82,53 @@ abstract final class AppTheme {
     return OutlineInputBorder(
       borderRadius: AppRadius.medium,
       borderSide: BorderSide.none,
+    );
+  }
+
+  static ElevatedButtonThemeData _buildElevatedButtonTheme(
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size.fromHeight(56),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        textStyle: textTheme.labelLarge,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.medium),
+      ),
+    );
+  }
+
+  static DatePickerThemeData _buildDatePickerTheme(
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return DatePickerThemeData(
+      backgroundColor: colorScheme.surface,
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: AppRadius.large),
+      headerBackgroundColor: colorScheme.primary,
+      headerForegroundColor: colorScheme.onPrimary,
+      headerHeadlineStyle: textTheme.headlineMedium?.copyWith(
+        color: colorScheme.onPrimary,
+        fontSize: 28,
+      ),
+      weekdayStyle: textTheme.bodyMedium?.copyWith(
+        fontWeight: FontWeight.w600,
+        color: colorScheme.onSurfaceVariant,
+      ),
+      dayStyle: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+      yearStyle: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurface),
+      dividerColor: colorScheme.outlineVariant,
+      cancelButtonStyle: TextButton.styleFrom(
+        foregroundColor: colorScheme.onSurfaceVariant,
+        textStyle: textTheme.titleMedium,
+      ),
+      confirmButtonStyle: TextButton.styleFrom(
+        foregroundColor: colorScheme.primary,
+        textStyle: textTheme.titleMedium,
+      ),
     );
   }
 }

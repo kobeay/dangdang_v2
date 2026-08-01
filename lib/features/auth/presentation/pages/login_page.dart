@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/card_container.dart';
+import '../../../../app/theme/app_radius.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -35,8 +36,8 @@ class LoginPage extends StatelessWidget {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
+                              color: colorScheme.surface,
+                              borderRadius: AppRadius.medium,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.05),
@@ -48,9 +49,8 @@ class LoginPage extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 '로그인',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                style: textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
                                   color: colorScheme.primary,
                                 ),
                               ),
@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: AppRadius.large,
                               onTap: () {
                                 context.push('/signup');
                               },
@@ -70,9 +70,8 @@ class LoginPage extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: Text(
                                   '회원가입',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                                  style: textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
                                     color: colorScheme.onSurfaceVariant,
                                   ),
                                 ),
@@ -99,7 +98,7 @@ class LoginPage extends StatelessWidget {
                       obscureText: true,
                     ),
                     const SizedBox(height: 32),
-                    PrimaryButton(text: '로그인', onPressed: null),
+                    PrimaryButton(text: '로그인', onPressed: () {}),
                   ],
                 ),
               ),

@@ -4,14 +4,19 @@ import '../widgets/primary_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/card_container.dart';
 import '../widgets/select_chip.dart';
+import '../../../../app/theme/app_radius.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 56, 24, 32),
         child: Column(
@@ -23,22 +28,20 @@ class SignupPage extends StatelessWidget {
                 onTap: () {
                   context.pop();
                 },
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: AppRadius.small,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.arrow_back,
                       size: 18,
-                      color: Color(0xFF9CA3AF),
+                      color: colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 6),
-                    const Text(
+                    Text(
                       '로그인으로 돌아가기',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF9CA3AF),
+                      style: textTheme.titleMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -46,30 +49,15 @@ class SignupPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            const Text(
-              '새 계정 만들기',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1A1C29),
-                height: 1.2,
-              ),
-            ),
+            Text('새 계정 만들기', style: textTheme.headlineLarge),
             const SizedBox(height: 16),
-            const Text(
-              '혈당 매니저와 함께 더 건강한\n내일을 만들어보세요!',
-              style: TextStyle(
-                fontSize: 18,
-                color: Color(0xFF6B7280),
-                height: 1.5,
-              ),
-            ),
+            Text('혈당 매니저와 함께 더 건강한\n내일을 만들어보세요!', style: textTheme.bodyLarge),
             const SizedBox(height: 40),
             CardContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('이름'),
+                  Text('이름', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   CustomTextField(
                     hintText: '실명을 입력하세요',
@@ -77,7 +65,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('닉네임'),
+                  Text('닉네임', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   CustomTextField(
                     hintText: '닉네임을 입력하세요',
@@ -85,7 +73,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('이메일 주소'),
+                  Text('이메일 주소', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   CustomTextField(
                     hintText: 'name@example.com',
@@ -93,7 +81,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('비밀번호'),
+                  Text('비밀번호', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   CustomTextField(
                     hintText: '6자리 이상 입력하세요',
@@ -103,7 +91,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('생년월일'),
+                  Text('생년월일', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   CustomTextField(
                     hintText: '생년월일을 선택하세요',
@@ -120,7 +108,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('성별'),
+                  Text('성별', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -152,7 +140,7 @@ class SignupPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('키'),
+                            Text('키', style: textTheme.titleMedium),
                             const SizedBox(height: 12),
                             CustomTextField(
                               hintText: 'ex) 175',
@@ -170,7 +158,7 @@ class SignupPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('몸무게'),
+                            Text('몸무게', style: textTheme.titleMedium),
                             const SizedBox(height: 12),
                             CustomTextField(
                               hintText: 'ex) 70',
@@ -185,7 +173,7 @@ class SignupPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 28),
-                  const Text('당뇨 유형'),
+                  Text('당뇨 유형', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
                   Row(
                     children: [
