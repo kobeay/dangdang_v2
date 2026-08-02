@@ -6,8 +6,34 @@ import '../widgets/card_container.dart';
 import '../widgets/select_chip.dart';
 import '../../../../app/theme/app_radius.dart';
 
-class SignupPage extends StatelessWidget {
+enum Gender {
+  male('남성'),
+  female('여성');
+
+  const Gender(this.label);
+  final String label;
+}
+
+enum DiabetesType {
+  type1('1형'),
+  type2('2형'),
+  type3('임신성'),
+  type4('전단계');
+
+  const DiabetesType(this.label);
+  final String label;
+}
+
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  Gender _selectedGender = Gender.male;
+  DiabetesType _selectedDiabetesType = DiabetesType.type1;
 
   @override
   Widget build(BuildContext context) {
@@ -110,27 +136,69 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 28),
                   Text('성별', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SelectChip(
-                          text: '남성',
-                          isSelected: true,
-                          onTap: null,
-                        ),
-                      ),
 
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: SelectChip(
-                          text: '여성',
-                          isSelected: true,
-                          onTap: null,
+                  Row(
+                    spacing: 12,
+                    children: Gender.values.map((gender) {
+                      final isSelected = _selectedGender == gender;
+                      final selectedColor = gender == Gender.male
+                          ? colorScheme.primary
+                          : Colors.red;
+
+                      return Expanded(
+                        child: ChoiceChip(
+                          label: SizedBox(
+                            height: 24,
+                            child: Center(child: Text(gender.label)),
+                          ),
+                          selected: isSelected,
+                          showCheckmark: false,
+                          selectedColor: colorScheme.surface,
+                          backgroundColor: colorScheme.surface,
+                          side: BorderSide(
+                            color: isSelected
+                                ? selectedColor
+                                : colorScheme.outlineVariant,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: AppRadius.medium,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          labelStyle: textTheme.labelMedium?.copyWith(
+                            color: isSelected
+                                ? selectedColor
+                                : colorScheme.onSurface,
+                          ),
+                          onSelected: (_) {
+                            setState(() {
+                              _selectedGender = gender;
+                            });
+                          },
                         ),
-                      ),
-                    ],
+                      );
+                    }).toList(),
                   ),
 
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '남성',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+
+                  //     const SizedBox(width: 10),
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '여성',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 28),
                   const SizedBox(height: 12),
                   Row(
@@ -175,43 +243,50 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 28),
                   Text('당뇨 유형', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SelectChip(
-                          text: '1형',
-                          isSelected: true,
-                          onTap: null,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SelectChip(
-                          text: '2형',
-                          isSelected: true,
-                          onTap: null,
-                        ),
-                      ),
 
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SelectChip(
-                          text: '임신성',
-                          isSelected: true,
-                          onTap: null,
-                        ),
-                      ),
+                  // Row(
+                  //   children: DiabetesType.values.map((diabetesType) {
+                  //     return Expanded(child: );
+                  //   }).toList()
+                  // ),
 
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: SelectChip(
-                          text: '전단계',
-                          isSelected: true,
-                          onTap: null,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '1형',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(width: 5),
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '2형',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+
+                  //     const SizedBox(width: 5),
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '임신성',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+
+                  //     const SizedBox(width: 5),
+                  //     Expanded(
+                  //       child: SelectChip(
+                  //         text: '전단계',
+                  //         isSelected: true,
+                  //         onTap: null,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 40),
                   PrimaryButton(text: '회원가입 완료', onPressed: null),
                 ],

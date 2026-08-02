@@ -62,6 +62,11 @@ abstract final class AppTheme {
         fontWeight: FontWeight.w700,
         color: colorScheme.onPrimary,
       ),
+      labelMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: colorScheme.onSurfaceVariant,
+      ),
     );
   }
 
