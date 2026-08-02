@@ -3,14 +3,18 @@ import 'package:go_router/go_router.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/card_container.dart';
+import '../../../../app/theme/app_radius.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -18,19 +22,9 @@ class LoginPage extends StatelessWidget {
             children: [
               Image.asset('assets/icons/app_icon.png', width: 90, height: 90),
               const SizedBox(height: 24),
-              const Text(
-                '당당하게',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+              Text('당당하게', style: textTheme.headlineMedium),
               const SizedBox(height: 8),
-              const Text(
-                '건강 관리, 당당하게 시작해보세요!',
-                style: TextStyle(fontSize: 16, color: Color(0xFF8A8D9F)),
-              ),
+              Text('건강 관리, 당당하게 시작해보세요!', style: textTheme.bodyMedium),
               const SizedBox(height: 40),
               CardContainer(
                 child: Column(
@@ -42,8 +36,8 @@ class LoginPage extends StatelessWidget {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
+                              color: colorScheme.surface,
+                              borderRadius: AppRadius.medium,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.05),
@@ -53,12 +47,11 @@ class LoginPage extends StatelessWidget {
                               ],
                             ),
                             child: Center(
-                              child: const Text(
+                              child: Text(
                                 '로그인',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
+                                style: textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: colorScheme.primary,
                                 ),
                               ),
                             ),
@@ -68,19 +61,18 @@ class LoginPage extends StatelessWidget {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: AppRadius.large,
                               onTap: () {
                                 context.push('/signup');
                               },
                               child: Container(
                                 height: 40,
                                 alignment: Alignment.center,
-                                child: const Text(
+                                child: Text(
                                   '회원가입',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+                                  style: textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: colorScheme.onSurfaceVariant,
                                   ),
                                 ),
                               ),
@@ -90,14 +82,14 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 32),
-                    const Text('이메일 주소'),
+                    Text('이메일 주소', style: textTheme.titleMedium),
                     const SizedBox(height: 12),
                     CustomTextField(
                       hintText: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
                     ),
                     const SizedBox(height: 24),
-                    const Text('비밀번호'),
+                    Text('비밀번호', style: textTheme.titleMedium),
                     const SizedBox(height: 12),
                     CustomTextField(
                       hintText: '비밀번호를 입력하세요',
@@ -106,7 +98,7 @@ class LoginPage extends StatelessWidget {
                       obscureText: true,
                     ),
                     const SizedBox(height: 32),
-                    PrimaryButton(text: '로그인', onPressed: null),
+                    PrimaryButton(text: '로그인', onPressed: () {}),
                   ],
                 ),
               ),

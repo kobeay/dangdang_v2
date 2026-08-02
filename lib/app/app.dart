@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../app/router/app.router.dart';
+import 'router/app_router.dart';
+import './theme/app_theme.dart';
 
 class DangDangApp extends StatelessWidget {
   const DangDangApp({super.key});
@@ -9,6 +10,7 @@ class DangDangApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
+      theme: AppTheme.light,
     );
   }
 }
