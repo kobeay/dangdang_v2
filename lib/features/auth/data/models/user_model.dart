@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dangdang_v2/features/auth/domain/entities/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   final String uid;
@@ -32,12 +33,12 @@ class UserModel {
       name: json['name'] as String,
       nickname: json['nickname'] as String,
       email: json['email'] as String,
-      birthDate: json['birthDate'] as DateTime,
+      birthDate: (json['birthDate'] as Timestamp).toDate(),
       gender: json['gender'] as String,
-      height: json['height'] as double,
-      weight: json['weight'] as double,
+      height: (json['height'] as num).toDouble(),
+      weight: (json['weight'] as num).toDouble(),
       diabetesType: json['diabetesType'] as String,
-      createdAt: json['createdAt'] as DateTime,
+      createdAt: (json['createdAt'] as Timestamp).toDate(),
     );
   }
 
