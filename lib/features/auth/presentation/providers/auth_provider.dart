@@ -3,6 +3,7 @@ import 'package:dangdang_v2/features/auth/data/datasources/firebase_auth_remote_
 import 'package:dangdang_v2/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:dangdang_v2/features/auth/domain/repositories/auth_repository.dart';
 import 'package:dangdang_v2/features/auth/domain/usecases/login_usecase.dart';
+import 'package:dangdang_v2/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref) {
@@ -15,4 +16,8 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 
 final loginUseCaseProvider = Provider<LoginUseCase>((ref) {
   return LoginUseCase(ref.read(authRepositoryProvider));
+});
+
+final signupUseCaseProvider = Provider<SignupUseCase>((ref) {
+  return SignupUseCase(ref.read(authRepositoryProvider));
 });

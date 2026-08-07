@@ -1,22 +1,11 @@
-import 'package:dangdang_v2/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:dangdang_v2/features/auth/domain/entities/user.dart';
 import 'package:dangdang_v2/features/auth/domain/repositories/auth_repository.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(this._remoteDataSource);
+class SignupUseCase {
+  final AuthRepository _authRepository;
 
-  final AuthRemoteDataSource _remoteDataSource;
+  SignupUseCase(this._authRepository);
 
-  @override
-  Future<User> login({required String email, required String password}) async {
-    final userModel = await _remoteDataSource.login(
-      email: email,
-      password: password,
-    );
-    return (userModel.toEntity());
-  }
-
-  @override
   Future<User> signup({
     required String name,
     required String nickname,
@@ -27,8 +16,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required double height,
     required double weight,
     required String diabetesType,
-  }) async {
-    final userModel = await _remoteDataSource.signup(
+  }) {
+    return _authRepository.signup(
       name: name,
       nickname: nickname,
       email: email,
@@ -39,6 +28,5 @@ class AuthRepositoryImpl implements AuthRepository {
       weight: weight,
       diabetesType: diabetesType,
     );
-    return (userModel.toEntity());
   }
 }
