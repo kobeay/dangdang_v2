@@ -42,6 +42,18 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     super.dispose();
   }
 
+  bool get _isFormValid {
+    return _nameController.text.isNotEmpty &&
+        _nicknameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _birthDate != null &&
+        _gender != null &&
+        _heightController.text.isNotEmpty &&
+        _weightController.text.isNotEmpty &&
+        _diabetesType != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(signupViewModelProvider);
@@ -112,6 +124,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     controller: _nameController,
                     hintText: '실명을 입력하세요',
                     prefixIcon: Icons.person_outline,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
                   ),
 
                   const SizedBox(height: 28),
@@ -121,6 +136,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     controller: _nicknameController,
                     hintText: '닉네임을 입력하세요',
                     prefixIcon: Icons.edit_outlined,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
                   ),
 
                   const SizedBox(height: 28),
@@ -130,6 +148,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     controller: _emailController,
                     hintText: 'name@example.com',
                     prefixIcon: Icons.mail_outline,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
                   ),
 
                   const SizedBox(height: 28),
@@ -148,6 +169,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       });
                     },
                     obscureText: _obscurePassword,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
                   ),
 
                   const SizedBox(height: 28),
@@ -185,6 +209,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         child: SelectChip(
                           text: '남성',
                           isSelected: _gender == '남성',
+                          selectedColor: colorScheme.primary,
                           onTap: () {
                             setState(() {
                               _gender = '남성';
@@ -198,6 +223,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         child: SelectChip(
                           text: '여성',
                           isSelected: _gender == '여성',
+                          selectedColor: Colors.red,
                           onTap: () {
                             setState(() {
                               _gender = '여성';
@@ -225,6 +251,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                               prefixIcon: null,
                               keyboardType: TextInputType.number,
                               suffixText: 'cm',
+                              onChanged: (_) {
+                                setState(() {});
+                              },
                             ),
                           ],
                         ),
@@ -244,6 +273,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                               prefixIcon: null,
                               keyboardType: TextInputType.number,
                               suffixText: 'kg',
+                              onChanged: (_) {
+                                setState(() {});
+                              },
                             ),
                           ],
                         ),
@@ -310,6 +342,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   const SizedBox(height: 40),
                   PrimaryButton(
                     text: state.isLoading ? '회원가입 중...' : '회원가입 완료',
+                    isFormValid: _isFormValid,
                     onPressed: state.isLoading
                         ? null
                         : () {

@@ -29,6 +29,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
+  bool get _isFormValid {
+    return _emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginViewModelProvider);
@@ -135,6 +140,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       controller: _emailController,
                       hintText: 'name@example.com',
                       prefixIcon: Icons.email_outlined,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
                     ),
 
                     const SizedBox(height: 24),
@@ -156,12 +164,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         });
                       },
                       obscureText: _obscurePassword,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
                     ),
 
                     const SizedBox(height: 32),
 
                     PrimaryButton(
                       text: state.isLoading ? '로그인 중...' : '로그인',
+                      isFormValid: _isFormValid,
 
                       onPressed: state.isLoading
                           ? null
@@ -196,10 +208,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                               ref
                                   .read(loginViewModelProvider.notifier)
-                                  .login(
-                                    email: _emailController.text.trim(),
-                                    password: _passwordController.text,
-                                  );
+                                  .login(email: email, password: password);
                             },
                     ),
                   ],

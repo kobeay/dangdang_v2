@@ -1,3 +1,4 @@
+import 'package:dangdang_v2/app/theme/app_radius.dart';
 import 'package:flutter/material.dart';
 
 class CardContainer extends StatelessWidget {
@@ -7,11 +8,14 @@ class CardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(32),
+        color: colorScheme.surface,
+        borderRadius: AppRadius.large,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
