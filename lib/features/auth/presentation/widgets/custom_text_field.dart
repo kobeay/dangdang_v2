@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final VoidCallback? onTap;
   final TextInputType? keyboardType;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     this.controller,
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.keyboardType,
+    this.onChanged,
   });
 
   @override
@@ -46,6 +48,7 @@ class CustomTextField extends StatelessWidget {
         suffixText: suffixText,
       ),
       onTap: onTap,
+      onChanged: onChanged,
     );
   }
 }
