@@ -1,10 +1,10 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:dangdang_v2/features/auth/presentation/validators/auth_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../app/theme/app_radius.dart';
-import '../viewmodels/login_view_model.dart';
+import '../models/login_model.dart';
 import '../widgets/card_container.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/primary_button.dart';
@@ -36,15 +36,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(loginViewModelProvider);
+    final state = ref.watch(loginProvider);
 
-    ref.listen(loginViewModelProvider, (previous, next) {
+    ref.listen(loginProvider, (previous, next) {
       if (next.errorMessage != null) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
 
-        ref.read(loginViewModelProvider.notifier).clearError();
+        ref.read(loginProvider.notifier).clearError();
       }
 
       if (next.isSuccess) {
@@ -181,33 +181,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               final email = _emailController.text.trim();
                               final password = _passwordController.text;
 
-                              if (email.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('이메일을 입력해주세요.')),
-                                );
-                                return;
-                              }
+                              final error = AuthValidator.validateLogin(
+                                email: email,
+                                password: password,
+                              );
 
-                              if (!EmailValidator.validate(email)) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('올바른 이메일 형식을 입력해주세요.'),
-                                  ),
-                                );
-                                return;
-                              }
+                              if (error != null) {
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).showSnackBar(SnackBar(content: Text(error)));
 
-                              if (password.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('비밀번호를 입력해주세요.'),
-                                  ),
-                                );
                                 return;
                               }
 
                               ref
-                                  .read(loginViewModelProvider.notifier)
+                                  .read(loginProvider.notifier)
                                   .login(email: email, password: password);
                             },
                     ),
