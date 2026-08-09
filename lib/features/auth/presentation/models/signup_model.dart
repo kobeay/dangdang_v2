@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final signupViewModelProvider = NotifierProvider<SignupViewModel, SignupState>(
-  SignupViewModel.new,
+final signupProvider = NotifierProvider<SignupModel, SignupState>(
+  SignupModel.new,
 );
 
 class SignupState {
@@ -35,7 +35,7 @@ class SignupState {
   }
 }
 
-class SignupViewModel extends Notifier<SignupState> {
+class SignupModel extends Notifier<SignupState> {
   @override
   SignupState build() {
     return const SignupState();

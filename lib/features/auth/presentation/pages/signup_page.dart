@@ -1,12 +1,14 @@
-import 'package:dangdang_v2/features/auth/presentation/viewmodels/signup_view_model.dart';
+import 'package:dangdang_v2/features/auth/presentation/models/signup_model.dart';
+import 'package:dangdang_v2/features/auth/presentation/validators/auth_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../widgets/primary_button.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/card_container.dart';
-import '../widgets/select_chip.dart';
+
 import '../../../../app/theme/app_radius.dart';
+import '../widgets/card_container.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
+import '../widgets/select_chip.dart';
 
 class SignupPage extends ConsumerStatefulWidget {
   const SignupPage({super.key});
@@ -56,15 +58,15 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(signupViewModelProvider);
+    final state = ref.watch(signupProvider);
 
-    ref.listen(signupViewModelProvider, (previous, next) {
+    ref.listen(signupProvider, (previous, next) {
       if (next.errorMessage != null) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
 
-        ref.read(signupViewModelProvider.notifier).clearError();
+        ref.read(signupProvider.notifier).clearError();
       }
 
       if (next.isSuccess) {
@@ -109,17 +111,25 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 ),
               ),
             ),
+
             const SizedBox(height: 40),
+
             Text('새 계정 만들기', style: textTheme.headlineLarge),
+
             const SizedBox(height: 16),
+
             Text('혈당 매니저와 함께 더 건강한\n내일을 만들어보세요!', style: textTheme.bodyLarge),
+
             const SizedBox(height: 40),
+
             CardContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('이름', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   CustomTextField(
                     controller: _nameController,
                     hintText: '실명을 입력하세요',
@@ -130,8 +140,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('닉네임', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   CustomTextField(
                     controller: _nicknameController,
                     hintText: '닉네임을 입력하세요',
@@ -142,8 +155,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('이메일 주소', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   CustomTextField(
                     controller: _emailController,
                     hintText: 'name@example.com',
@@ -154,8 +170,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('비밀번호', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   CustomTextField(
                     controller: _passwordController,
                     hintText: '6자리 이상 입력하세요',
@@ -175,8 +194,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('생년월일', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   CustomTextField(
                     controller: _birthDateController,
                     hintText: '생년월일을 선택하세요',
@@ -201,8 +223,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('성별', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   Row(
                     children: [
                       Expanded(
@@ -217,7 +242,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                           },
                         ),
                       ),
-
                       const SizedBox(width: 10),
                       Expanded(
                         child: SelectChip(
@@ -235,7 +259,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
-                  const SizedBox(height: 12),
+
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -244,7 +268,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('키', style: textTheme.titleMedium),
+
                             const SizedBox(height: 12),
+
                             CustomTextField(
                               controller: _heightController,
                               hintText: 'ex) 175',
@@ -266,7 +292,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('몸무게', style: textTheme.titleMedium),
+
                             const SizedBox(height: 12),
+
                             CustomTextField(
                               controller: _weightController,
                               hintText: 'ex) 70',
@@ -284,8 +312,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
 
                   const SizedBox(height: 28),
+
                   Text('당뇨 유형', style: textTheme.titleMedium),
+
                   const SizedBox(height: 12),
+
                   Row(
                     children: [
                       Expanded(
@@ -299,7 +330,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                           },
                         ),
                       ),
+
                       const SizedBox(width: 5),
+
                       Expanded(
                         child: SelectChip(
                           text: '2형',
@@ -313,6 +346,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       ),
 
                       const SizedBox(width: 5),
+
                       Expanded(
                         child: SelectChip(
                           text: '임신성',
@@ -326,6 +360,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       ),
 
                       const SizedBox(width: 5),
+
                       Expanded(
                         child: SelectChip(
                           text: '전단계',
@@ -339,7 +374,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       ),
                     ],
                   ),
+
                   const SizedBox(height: 40),
+
                   PrimaryButton(
                     text: state.isLoading ? '회원가입 중...' : '회원가입 완료',
                     isFormValid: _isFormValid,
@@ -353,71 +390,28 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                             final height = _heightController.text;
                             final weight = _weightController.text;
 
-                            if (name.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('이름을 입력해주세요.')),
-                              );
-                              return;
-                            }
+                            final error = AuthValidator.validateSignup(
+                              name: name,
+                              nickname: nickname,
+                              email: email,
+                              password: password,
+                              birthDate: _birthDate,
+                              gender: _gender,
+                              height: height,
+                              weight: weight,
+                              diabetesType: _diabetesType,
+                            );
 
-                            if (nickname.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('닉네임을 입력해주세요.')),
-                              );
-                              return;
-                            }
+                            if (error != null) {
+                              ScaffoldMessenger.of(
+                                context,
+                              ).showSnackBar(SnackBar(content: Text(error)));
 
-                            if (email.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('이메일을 입력해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (password.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('비밀번호를 입력해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (_birthDate == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('생년월일을 선택해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (_gender == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('성별을 선택해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (height.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('키를 입력해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (weight.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('몸무게를 입력해주세요.')),
-                              );
-                              return;
-                            }
-
-                            if (_diabetesType == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('당뇨 유형을 선택해주세요.')),
-                              );
                               return;
                             }
 
                             ref
-                                .read(signupViewModelProvider.notifier)
+                                .read(signupProvider.notifier)
                                 .signup(
                                   name: name,
                                   nickname: nickname,

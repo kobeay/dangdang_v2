@@ -3,9 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final loginViewModelProvider = NotifierProvider<LoginViewModel, LoginState>(
-  LoginViewModel.new,
-);
+final loginProvider = NotifierProvider<LoginModel, LoginState>(LoginModel.new);
 
 class LoginState {
   static const _undefined = Object();
@@ -35,7 +33,7 @@ class LoginState {
   }
 }
 
-class LoginViewModel extends Notifier<LoginState> {
+class LoginModel extends Notifier<LoginState> {
   @override
   LoginState build() {
     return const LoginState();
