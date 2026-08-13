@@ -80,355 +80,357 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(24, 56, 24, 32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  context.pop();
-                },
-                borderRadius: AppRadius.small,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.arrow_back,
-                      size: 18,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      '로그인으로 돌아가기',
-                      style: textTheme.titleMedium?.copyWith(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    context.pop();
+                  },
+                  borderRadius: AppRadius.small,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.arrow_back,
+                        size: 18,
                         color: colorScheme.onSurfaceVariant,
                       ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '로그인으로 돌아가기',
+                        style: textTheme.titleMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
+              Text('새 계정 만들기', style: textTheme.headlineLarge),
+
+              const SizedBox(height: 16),
+
+              Text('혈당 매니저와 함께 더 건강한\n내일을 만들어보세요!', style: textTheme.bodyLarge),
+
+              const SizedBox(height: 40),
+
+              CardContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('이름', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _nameController,
+                      hintText: '실명을 입력하세요',
+                      prefixIcon: Icons.person_outline,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('닉네임', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _nicknameController,
+                      hintText: '닉네임을 입력하세요',
+                      prefixIcon: Icons.edit_outlined,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('이메일 주소', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _emailController,
+                      hintText: 'name@example.com',
+                      prefixIcon: Icons.mail_outline,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('비밀번호', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _passwordController,
+                      hintText: '6자리 이상 입력하세요',
+                      prefixIcon: Icons.lock_outline,
+                      suffixIcon: _obscurePassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      onSuffixIconPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      obscureText: _obscurePassword,
+                      onChanged: (_) {
+                        setState(() {});
+                      },
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('생년월일', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _birthDateController,
+                      hintText: '생년월일을 선택하세요',
+                      prefixIcon: Icons.calendar_today,
+                      readOnly: true,
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: _birthDate ?? DateTime(2000),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+
+                        if (date != null) {
+                          setState(() {
+                            _birthDate = date;
+                            _birthDateController.text =
+                                '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+                          });
+                        }
+                      },
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('성별', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SelectChip(
+                            text: '남성',
+                            isSelected: _gender == '남성',
+                            selectedColor: colorScheme.primary,
+                            onTap: () {
+                              setState(() {
+                                _gender = '남성';
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SelectChip(
+                            text: '여성',
+                            isSelected: _gender == '여성',
+                            selectedColor: Colors.red,
+                            onTap: () {
+                              setState(() {
+                                _gender = '여성';
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('키', style: textTheme.titleMedium),
+
+                              const SizedBox(height: 12),
+
+                              CustomTextField(
+                                controller: _heightController,
+                                hintText: 'ex) 175',
+                                prefixIcon: null,
+                                keyboardType: TextInputType.number,
+                                suffixText: 'cm',
+                                onChanged: (_) {
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(width: 16),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('몸무게', style: textTheme.titleMedium),
+
+                              const SizedBox(height: 12),
+
+                              CustomTextField(
+                                controller: _weightController,
+                                hintText: 'ex) 70',
+                                prefixIcon: null,
+                                keyboardType: TextInputType.number,
+                                suffixText: 'kg',
+                                onChanged: (_) {
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text('당뇨 유형', style: textTheme.titleMedium),
+
+                    const SizedBox(height: 12),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SelectChip(
+                            text: '1형',
+                            isSelected: _diabetesType == '1형',
+                            onTap: () {
+                              setState(() {
+                                _diabetesType = '1형';
+                              });
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(width: 5),
+
+                        Expanded(
+                          child: SelectChip(
+                            text: '2형',
+                            isSelected: _diabetesType == '2형',
+                            onTap: () {
+                              setState(() {
+                                _diabetesType = '2형';
+                              });
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(width: 5),
+
+                        Expanded(
+                          child: SelectChip(
+                            text: '임신성',
+                            isSelected: _diabetesType == '임신성',
+                            onTap: () {
+                              setState(() {
+                                _diabetesType = '임신성';
+                              });
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(width: 5),
+
+                        Expanded(
+                          child: SelectChip(
+                            text: '전단계',
+                            isSelected: _diabetesType == '전단계',
+                            onTap: () {
+                              setState(() {
+                                _diabetesType = '전단계';
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 40),
+
+                    PrimaryButton(
+                      text: state.isLoading ? '회원가입 중...' : '회원가입 완료',
+                      isFormValid: _isFormValid,
+                      onPressed: state.isLoading
+                          ? null
+                          : () {
+                              final name = _nameController.text;
+                              final nickname = _nicknameController.text;
+                              final email = _emailController.text.trim();
+                              final password = _passwordController.text;
+                              final height = _heightController.text;
+                              final weight = _weightController.text;
+
+                              final error = AuthValidator.validateSignup(
+                                name: name,
+                                nickname: nickname,
+                                email: email,
+                                password: password,
+                                birthDate: _birthDate,
+                                gender: _gender,
+                                height: height,
+                                weight: weight,
+                                diabetesType: _diabetesType,
+                              );
+
+                              if (error != null) {
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).showSnackBar(SnackBar(content: Text(error)));
+
+                                return;
+                              }
+
+                              ref
+                                  .read(signupProvider.notifier)
+                                  .signup(
+                                    name: name,
+                                    nickname: nickname,
+                                    email: email,
+                                    password: password,
+                                    birthDate: _birthDate!,
+                                    gender: _gender!,
+                                    height: double.parse(height),
+                                    weight: double.parse(weight),
+                                    diabetesType: _diabetesType!,
+                                  );
+                            },
                     ),
                   ],
                 ),
               ),
-            ),
-
-            const SizedBox(height: 40),
-
-            Text('새 계정 만들기', style: textTheme.headlineLarge),
-
-            const SizedBox(height: 16),
-
-            Text('혈당 매니저와 함께 더 건강한\n내일을 만들어보세요!', style: textTheme.bodyLarge),
-
-            const SizedBox(height: 40),
-
-            CardContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('이름', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  CustomTextField(
-                    controller: _nameController,
-                    hintText: '실명을 입력하세요',
-                    prefixIcon: Icons.person_outline,
-                    onChanged: (_) {
-                      setState(() {});
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('닉네임', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  CustomTextField(
-                    controller: _nicknameController,
-                    hintText: '닉네임을 입력하세요',
-                    prefixIcon: Icons.edit_outlined,
-                    onChanged: (_) {
-                      setState(() {});
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('이메일 주소', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  CustomTextField(
-                    controller: _emailController,
-                    hintText: 'name@example.com',
-                    prefixIcon: Icons.mail_outline,
-                    onChanged: (_) {
-                      setState(() {});
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('비밀번호', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  CustomTextField(
-                    controller: _passwordController,
-                    hintText: '6자리 이상 입력하세요',
-                    prefixIcon: Icons.lock_outline,
-                    suffixIcon: _obscurePassword
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    onSuffixIconPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                    obscureText: _obscurePassword,
-                    onChanged: (_) {
-                      setState(() {});
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('생년월일', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  CustomTextField(
-                    controller: _birthDateController,
-                    hintText: '생년월일을 선택하세요',
-                    prefixIcon: Icons.calendar_today,
-                    readOnly: true,
-                    onTap: () async {
-                      final date = await showDatePicker(
-                        context: context,
-                        initialDate: _birthDate ?? DateTime(2000),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now(),
-                      );
-
-                      if (date != null) {
-                        setState(() {
-                          _birthDate = date;
-                          _birthDateController.text =
-                              '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-                        });
-                      }
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('성별', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SelectChip(
-                          text: '남성',
-                          isSelected: _gender == '남성',
-                          selectedColor: colorScheme.primary,
-                          onTap: () {
-                            setState(() {
-                              _gender = '남성';
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: SelectChip(
-                          text: '여성',
-                          isSelected: _gender == '여성',
-                          selectedColor: Colors.red,
-                          onTap: () {
-                            setState(() {
-                              _gender = '여성';
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('키', style: textTheme.titleMedium),
-
-                            const SizedBox(height: 12),
-
-                            CustomTextField(
-                              controller: _heightController,
-                              hintText: 'ex) 175',
-                              prefixIcon: null,
-                              keyboardType: TextInputType.number,
-                              suffixText: 'cm',
-                              onChanged: (_) {
-                                setState(() {});
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(width: 16),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('몸무게', style: textTheme.titleMedium),
-
-                            const SizedBox(height: 12),
-
-                            CustomTextField(
-                              controller: _weightController,
-                              hintText: 'ex) 70',
-                              prefixIcon: null,
-                              keyboardType: TextInputType.number,
-                              suffixText: 'kg',
-                              onChanged: (_) {
-                                setState(() {});
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  Text('당뇨 유형', style: textTheme.titleMedium),
-
-                  const SizedBox(height: 12),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SelectChip(
-                          text: '1형',
-                          isSelected: _diabetesType == '1형',
-                          onTap: () {
-                            setState(() {
-                              _diabetesType = '1형';
-                            });
-                          },
-                        ),
-                      ),
-
-                      const SizedBox(width: 5),
-
-                      Expanded(
-                        child: SelectChip(
-                          text: '2형',
-                          isSelected: _diabetesType == '2형',
-                          onTap: () {
-                            setState(() {
-                              _diabetesType = '2형';
-                            });
-                          },
-                        ),
-                      ),
-
-                      const SizedBox(width: 5),
-
-                      Expanded(
-                        child: SelectChip(
-                          text: '임신성',
-                          isSelected: _diabetesType == '임신성',
-                          onTap: () {
-                            setState(() {
-                              _diabetesType = '임신성';
-                            });
-                          },
-                        ),
-                      ),
-
-                      const SizedBox(width: 5),
-
-                      Expanded(
-                        child: SelectChip(
-                          text: '전단계',
-                          isSelected: _diabetesType == '전단계',
-                          onTap: () {
-                            setState(() {
-                              _diabetesType = '전단계';
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  PrimaryButton(
-                    text: state.isLoading ? '회원가입 중...' : '회원가입 완료',
-                    isFormValid: _isFormValid,
-                    onPressed: state.isLoading
-                        ? null
-                        : () {
-                            final name = _nameController.text;
-                            final nickname = _nicknameController.text;
-                            final email = _emailController.text.trim();
-                            final password = _passwordController.text;
-                            final height = _heightController.text;
-                            final weight = _weightController.text;
-
-                            final error = AuthValidator.validateSignup(
-                              name: name,
-                              nickname: nickname,
-                              email: email,
-                              password: password,
-                              birthDate: _birthDate,
-                              gender: _gender,
-                              height: height,
-                              weight: weight,
-                              diabetesType: _diabetesType,
-                            );
-
-                            if (error != null) {
-                              ScaffoldMessenger.of(
-                                context,
-                              ).showSnackBar(SnackBar(content: Text(error)));
-
-                              return;
-                            }
-
-                            ref
-                                .read(signupProvider.notifier)
-                                .signup(
-                                  name: name,
-                                  nickname: nickname,
-                                  email: email,
-                                  password: password,
-                                  birthDate: _birthDate!,
-                                  gender: _gender!,
-                                  height: double.parse(height),
-                                  weight: double.parse(weight),
-                                  diabetesType: _diabetesType!,
-                                );
-                          },
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
