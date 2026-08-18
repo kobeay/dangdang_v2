@@ -46,21 +46,29 @@ abstract final class AppTheme {
         fontWeight: FontWeight.bold,
         color: colorScheme.onSurface,
       ),
+      titleLarge: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
       titleMedium: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         color: colorScheme.onSurface,
       ),
       bodyLarge: TextStyle(
-        fontSize: 18,
-        color: colorScheme.onSurfaceVariant,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: colorScheme.onSurface,
         height: 1.5,
       ),
-      bodyMedium: TextStyle(fontSize: 16, color: colorScheme.onSurfaceVariant),
+      bodyMedium: TextStyle(fontSize: 15, color: colorScheme.onSurfaceVariant),
       labelLarge: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w700,
         color: colorScheme.onPrimary,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: colorScheme.onSurfaceVariant,
+        height: 1.3,
       ),
     );
   }
