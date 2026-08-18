@@ -48,8 +48,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       }
 
       if (next.isSuccess) {
-        // TODO: Home 화면 구현 후 이동 처리
-        // context.go('/home');
+        context.go('/home');
       }
     });
 
