@@ -1,10 +1,25 @@
 import 'package:dangdang_v2/app/theme/app_radius.dart';
 import 'package:dangdang_v2/core/widgets/app_bottom_navigation_bar.dart';
 import 'package:dangdang_v2/features/home/presentation/widgets/blood_glucose_chart.dart';
+import 'package:dangdang_v2/features/home/presentation/widgets/meal_image_source_bottom_sheet.dart';
+import 'package:dangdang_v2/features/home/presentation/widgets/quick_action_card.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+
+    final XFile? image = await picker.pickImage(source: source);
+
+    if (image == null) {
+      return;
+    }
+
+    debugPrint(image.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +59,10 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CircleAvatar(radius: 24, child: Icon(Icons.person)),
+                  const CircleAvatar(radius: 24, child: Icon(Icons.person)),
                 ],
               ),
+
               const SizedBox(height: 10),
 
               Container(
@@ -76,10 +92,10 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 25),
+
                     Row(
-                      //crossAxisAlignment: CrossAxisAlignment.baseline,
-                      //textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
                           '100',
@@ -96,69 +112,29 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 12),
+
                     Text('✓ 정상 범위 내에 있습니다(식후)', style: textTheme.labelSmall),
                   ],
                 ),
               ),
+
               const SizedBox(height: 25),
+
               Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: AppRadius.large,
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorScheme.shadow.withValues(alpha: 0.08),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        color: colorScheme.surface,
-                        borderRadius: AppRadius.large,
-                        clipBehavior: Clip.antiAlias,
-                        child: InkWell(
-                          onTap: () {},
-                          borderRadius: AppRadius.large,
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              borderRadius: AppRadius.large,
-                              border: Border.all(
-                                color: colorScheme.outlineVariant,
-                                width: 1,
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: AppRadius.medium,
-                                    color: const Color(0xFFE8F0FE),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: colorScheme.primary,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                Text('혈당 기록', style: textTheme.bodyLarge),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                    child: QuickActionCard(
+                      icon: Icons.add,
+                      iconColor: colorScheme.primary,
+                      iconBackgroundColor: const Color(0xFFE8F0FE),
+                      title: '혈당 기록',
                     ),
                   ),
+
                   const SizedBox(width: 20),
+
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -171,50 +147,40 @@ class HomePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Material(
-                        color: colorScheme.surface,
-                        borderRadius: AppRadius.large,
-                        clipBehavior: Clip.antiAlias,
-                        child: InkWell(
-                          onTap: () {},
-                          borderRadius: AppRadius.large,
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              borderRadius: AppRadius.large,
-                              border: Border.all(
-                                color: colorScheme.outlineVariant,
-                                width: 1,
+                      child: QuickActionCard(
+                        icon: Icons.camera_alt_outlined,
+                        iconColor: const Color(0xFF12B76A),
+                        iconBackgroundColor: const Color(0xFFE8FAF1),
+                        title: '식단 촬영',
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: colorScheme.surface,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(28),
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: AppRadius.medium,
-                                    color: const Color(0xFFE8FAF1),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.camera_alt_outlined,
-                                      color: Color(0xFF12B76A),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                Text('식단 촬영', style: textTheme.bodyLarge),
-                              ],
-                            ),
-                          ),
-                        ),
+                            builder: (context) {
+                              return MealImageSourceBottomSheet(
+                                onTapCamera: () {
+                                  Navigator.pop(context);
+                                  _pickImage(ImageSource.camera);
+                                },
+                                onTapGallery: () {
+                                  Navigator.pop(context);
+                                  _pickImage(ImageSource.gallery);
+                                },
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
                 ],
               ),
+
               const SizedBox(height: 35),
 
               Row(
@@ -226,7 +192,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+
               const SizedBox(height: 20),
+
               const BloodGlucoseChart(),
             ],
           ),
